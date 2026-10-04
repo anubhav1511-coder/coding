@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dodge Game</title>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: arial;
+        }
+
+        #game {
+            width: 400px;
+            height: 500px;
+            background-color: #222;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid white;
+        }
+
+       
+        #player {
+             width: 50px;
+             height: 50px;
+             background-color: blue;
+             position: absolute;
+             bottom: 10px;
+             left: 175px;
+
+        }
+
+        #enemy {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            top: 0px;
+            left: 100px;
+            
+        }
+        
+        
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 15px;
+        
+        }
+
+    </style>
+    
+</head>
+
+<body>
+
+    <h1>Dodge game</h1>
+
+    <p>Score: <span id="score">0</span></p>
+
+    <div id="game">
+
+        <div id="player"></div>
+
+        <div id="enemy"></div>
+
+    </div>
+
+    <button onclick="restartGame()">Restart</button>
+
+    
+    <script>
+
+        let player = document.getElementById("player");
+         
+        let enemy = document.getElementById("enemy");
+         
+        let scoreText = document.getElementById("score");
+
+        let playerPosition = 175;
+
+        let enemyPosition = 0;
+
+        let enemyLeft = 100;
+
+        let score = 0;
+
+
+        window.onkeydown = function(event) {
+    event.preventDefault();
+
+    if (event.key == "ArrowLeft") {
+        playerPosition = playerPosition - 20;
+    }
+
+    if (event.key == "ArrowRight") {
+        playerPosition = playerPosition + 20;
+    }
+
+    if (playerPosition < 0) {
+        playerPosition = 0;
+    }
+
+    if (playerPosition > 350) {
+        playerPosition = 350;
+    }
+
+    player.style.left = playerPosition + "px";
+};
+
+
+        function moveEnemy() {
+
+            enemyPosition = enemyPosition + 5;
+
+            enemy.style.top = enemyPosition +"px";
+
+           let playerLeft = playerPosition;
+
+if (
+    enemyPosition + 50 >= 440 &&
+    enemyLeft < playerLeft + 50 &&
+    enemyLeft + 50 > playerLeft
+) {
+    alert("Game over! Your Score: " + score);
+    restartGame();
+    return;
+}
+
+if (enemyPosition > 500) {
+    enemyPosition = 0;
+
+    enemyLeft = Math.floor(Math.random() * 350);
+
+    enemy.style.left = enemyLeft + "px";
+
+    score = score + 1;
+    scoreText.innerHTML = score;
+}
+
+            
+
+        }
+        
+        setInterval(moveEnemy, 30);
+
+        function restartGame() {
+
+            playerPosition = 175;
+            
+            enemyPosition = 0;
+            
+            score = 0;
+
+            player.style.left = "175px";
+            
+            enemy.style.top = "0px";
+            
+            scoreText.innerHTML = "0";
+
+        }
+window.moveLeft = function() {
+    playerPosition -= 20;
+    if (playerPosition < 0) playerPosition = 0;
+    player.style.left = playerPosition + "px";
+};
+
+window.moveRight = function() {
+    playerPosition += 20;
+    if (playerPosition > 350) playerPosition = 350;
+    player.style.left = playerPosition + "px";
+};
+    </script>
+    
+</body>
+
+</html> Position 
+            
+        
+
+
+
+
+        
+
+        
+        
+
+
+
+        
